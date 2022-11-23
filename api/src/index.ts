@@ -21,7 +21,7 @@ console.log({
     logging: false
 })
 
-const dataSource = new DataSource({
+export const dataSource = new DataSource({
     type: "mysql",
     host: config.dbURL,
     port:  config.dbPort,
@@ -35,7 +35,7 @@ const dataSource = new DataSource({
     logging: false
 })
 
-const connection = dataSource.initialize().then(connection => {
+dataSource.initialize().then(connection => {
     console.log('a new connection is created')
     const app = new App();
     

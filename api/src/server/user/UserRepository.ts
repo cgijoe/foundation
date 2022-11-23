@@ -1,7 +1,7 @@
-import {getManager, Repository} from "typeorm";
+import {Repository} from "typeorm";
 import {UserInfo} from "./models/UserInfo";
 import { Result } from "../../models/Result";
-import ValidationExceptions from "../../constants/RuntimExceptions";
+import { dataSource } from "../..";
 
 
 export class UserRepository {
@@ -9,7 +9,7 @@ export class UserRepository {
     private repository : Repository<any> ;
 
     constructor() {
-        this.repository = getManager().getRepository(UserInfo)
+        this.repository = dataSource.getRepository(UserInfo)
     }
 
     public saveUser = async (userModel) => {
