@@ -1,0 +1,13 @@
+
+GET http://localhost:3001/api/v1/getUsers
+
+
+###
+POST http://localhost:3001/api/v1/createUser  HTTP/1.1
+content-type: application/json
+
+{
+    "name" : "userakhiasdff" ,
+    "age" : 23 ,
+    "email": "mohammadfaisal1011@gmail.com"
+}

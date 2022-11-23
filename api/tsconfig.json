@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    
+    "target": "es5",                         
+    "module": "commonjs",                    
+    "lib": ["es6"],                           
+    "allowJs": true,   
+                           
+    "outDir": "build",                       
+    "rootDir": "src",                         
+    
+    "strict": true,                           
+    "noImplicitAny": false,                   
+    "esModuleInterop": true,                 
+  
+    "resolveJsonModule": true,               
+    "skipLibCheck": true,                     
+    "forceConsistentCasingInFileNames": true ,
+
+    //for dependency injector (inversify)
+    "types" : ["reflect-metadata"] ,
+    "moduleResolution": "node" ,
+    "experimentalDecorators": true,        
+    "emitDecoratorMetadata": true,       
+    
+    
+    "strictPropertyInitialization": false
+
+    
+  }
+}
