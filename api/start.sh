@@ -1,0 +1,1 @@
+./wait-for-it.sh mydb:3306 --strict --timeout=300 -- npm start
