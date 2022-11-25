@@ -30,6 +30,7 @@ services:
       - 3001:3001
     depends_on:
       - mydb
+      - keycloak
 
   ui:
     build: ./ui/
@@ -37,3 +38,10 @@ services:
       - 5173:8080
     depends_on:
       - api
+      - keycloak
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "3050:80"
