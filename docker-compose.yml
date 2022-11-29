@@ -4,6 +4,8 @@ services:
   mydb:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - local-db:/var/lib/mysql
     env_file:
       - dev.env
 
@@ -40,8 +42,5 @@ services:
       - api
       - keycloak
 
-  nginx:
-    restart: always
-    build: ./nginx/
-    ports:
-      - "3050:80"
+volumes:
+  local-db:

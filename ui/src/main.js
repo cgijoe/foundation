@@ -1,28 +1,31 @@
 import { createApp } from "vue";
 import Keycloak from "keycloak-js";
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 import App from "./App.vue";
 import router from "./router";
 
 import "./assets/main.css";
 
-let initOptions = {
-  url: "http://localhost:8080/auth",
-  realm: "keycloak-demo",
-  clientId: "app-vue",
-  onLoad: "login-required",
-};
+let keycloak = new Keycloak("../keycloak.json");
 
-let keycloak = new Keycloak(initOptions);
-
-keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
-  if (!auth) {
+keycloak.init({ onLoad: "login-required" }).then((authenticated) => {
+  if (!authenticated) {
     window.location.reload();
   } else {
-    console.log(":D");
+    window.token = keycloak.token;
   }
+
+  const vuetify = createVuetify({
+    components,
+    directives,
+  });
 
   const app = createApp(App);
   app.use(router);
+  app.use(vuetify);
   app.mount("#app");
 
   setInterval(() => {
