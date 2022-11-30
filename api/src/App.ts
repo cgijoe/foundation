@@ -3,7 +3,6 @@ import express from "express";
 import logger from "morgan";
 import cors from "cors";
 import { useExpressServer } from "routing-controllers";
-import UserController from "./server/user/UserController";
 import { CustomErrorHandler } from "./middlewares/CustomErrorHandler";
 
 import config from "./config";
@@ -38,7 +37,7 @@ export default class App {
       classTransformer: true,
       validation: { skipMissingProperties: true },
       // validation : true,
-      controllers: [UserController, NoteController],
+      controllers: [NoteController],
       middlewares: [CustomErrorHandler],
       // controllerDirs: [__dirname + "/controller/**/*.controller.js"],
       // middlewareDirs: [__dirname + "/middleware/**/*.middleware.js"],
