@@ -7,7 +7,7 @@ const createNote = (body: INote) =>
   apiClient.post(ApiEndpoints.NOTE_RESOURCE, body)
 
 const getNotes = (queryParams: IPaginationQuery) =>
-  apiClient.get(ApiEndpoints.NOTE_RESOURCE, {
+  apiClient.get('/api/v1/getUsers', {
     params: queryParams,
   })
 

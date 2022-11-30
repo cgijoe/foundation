@@ -1,29 +1,40 @@
-import { Controller, UseBefore, QueryParams, JsonController, Param, Body, Get, Post, Put, Delete, Res, NotFoundError, Req, BodyParam } from "routing-controllers";
+import {
+  JsonController,
+  Body,
+  Get,
+  Post,
+  Res,
+  UseBefore,
+  Req,
+} from "routing-controllers";
 import { IUserService } from "./IUserService";
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 import { SuccessResponse } from "../../models/SuccessResponse";
 import CreateUserRequest from "./models/CreateUserRequest";
 import "reflect-metadata";
-import {Service, Container, Inject} from "typedi";
+import { Container } from "typedi";
 import { UserService } from "./UserService";
+import Keycloak from "../../Keycloak";
+
 @JsonController()
 export default class UserController {
-
- 
   public userService: IUserService = Container.get(UserService);
 
-
   @Get("/getUsers/")
-  async getAll(@Res() response: Response) {
+  @UseBefore(Keycloak.getInstance().protect())
+  async getAll(@Req() request: Request, @Res() response: Response) {
+    console.log(request);
     const allUsers = await this.userService.getAllUsers();
     return response.json(new SuccessResponse(allUsers.getValue()));
   }
 
   @Post("/createUser/")
-  async createUser(@Body({ required: true }) createUserRequest: CreateUserRequest, @Res() response: Response) {
-    console.log(createUserRequest );
+  async createUser(
+    @Body({ required: true }) createUserRequest: CreateUserRequest,
+    @Res() response: Response
+  ) {
+    console.log(createUserRequest);
     const userInfo = await this.userService.createNewUser(createUserRequest);
     return response.json(new SuccessResponse(userInfo.getValue()));
   }
-
 }

@@ -1,15 +1,13 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class UserInfo {
+  @PrimaryGeneratedColumn()
+  id: number = 0;
 
-    @PrimaryGeneratedColumn()
-    id: number = 0;
+  @Column("text")
+  name: string = "";
 
-    @Column("text")
-    name : string  = "";
-
-    @Column()
-    age : number = 0;
-
+  @Column()
+  age: number = 0;
 }

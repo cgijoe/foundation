@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { useNotesStore } from './stores/useNotesStore'
+
+const notes = useNotesStore()
 </script>
 
 <template>
@@ -15,6 +18,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <HelloWorld msg="Hi there!" />
+      <button @click="notes.getNotes">Get Notes</button>
 
       <nav>
         <RouterLink to="/">Home</RouterLink>

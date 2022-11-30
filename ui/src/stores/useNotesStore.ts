@@ -26,12 +26,14 @@ export const useNotesStore = defineStore('notes', {
         this.loading = false
       }
     },
-    async getNotes(paginationParams: IPaginationQuery) {
+    async getNotes(paginationParams?: IPaginationQuery) {
       this.loading = true;
       try {
-        this.data = await (await noteApi.getNotes(paginationParams)).data
+        this.data = await (await noteApi.getNotes(paginationParams || { page: 1 })).data
+        console.log(this.data)
       } catch (err) {
         this.error = err as Error
+        console.log(this.error)
       } finally {
         this.loading = false
       }
