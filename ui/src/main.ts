@@ -5,22 +5,23 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
-import Keycloak from 'keycloak-js'
 
 import App from './App.vue'
 import router from './router'
 import apiClient from './utilities/apiClient'
 
-
 import './assets/main.css'
+import { KeycloakClient } from './Keycloak'
 
-const keycloak = new Keycloak("../keycloak.json")
+const keycloak = KeycloakClient.getInstance()
 keycloak.init({ onLoad: 'login-required' }).then((authenticated) => {
   if (!authenticated) {
-    window.location.reload();
+    window.location.reload()
   } else {
     apiClient.interceptors.request.use((request) => {
-      (request.headers as AxiosRequestHeaders).Authorization = `Bearer ${keycloak?.token}`
+      ;(
+        request.headers as AxiosRequestHeaders
+      ).Authorization = `Bearer ${keycloak?.token}`
       return request
     })
   }

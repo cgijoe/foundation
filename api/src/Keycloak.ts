@@ -14,7 +14,10 @@ class Keycloak {
     }
 
     const memoryStore = this.getMemoryStore();
-    this.keycloak = new KeycloakConnect({ store: memoryStore }, keycloakConfig);
+    this.keycloak = new KeycloakConnect(
+      { store: this.getMemoryStore() },
+      keycloakConfig
+    );
     return this.keycloak;
   }
 
