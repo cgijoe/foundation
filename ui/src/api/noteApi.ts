@@ -1,13 +1,13 @@
-import { ApiEndpoints } from "@/configs/ApiEndpoints"
-import type { INote } from "@/interfaces/INote"
-import type { IPaginationQuery } from "@/interfaces/IPaginationQuery"
-import apiClient from "@/utilities/apiClient"
+import { ApiEndpoints } from '@/configs/ApiEndpoints'
+import type { INote } from '@/interfaces/INote'
+import type { IPaginationQuery } from '@/interfaces/IPaginationQuery'
+import apiClient from '@/utilities/apiClient'
 
 const createNote = (body: INote) =>
   apiClient.post(ApiEndpoints.NOTE_RESOURCE, body)
 
 const getNotes = (queryParams: IPaginationQuery) =>
-  apiClient.get('/api/v1/getUsers', {
+  apiClient.get(ApiEndpoints.NOTE_RESOURCE, {
     params: queryParams,
   })
 
@@ -25,5 +25,5 @@ export default {
   getNotes,
   getNote,
   updateNote,
-  deleteNote
+  deleteNote,
 }

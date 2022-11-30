@@ -3,7 +3,7 @@ import App from "./App";
 import config from "./config/index";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { UserInfo } from "./server/user/models/UserInfo";
+import { Note } from "./server/note/models/Note";
 
 console.log({
   type: "mysql",
@@ -12,7 +12,7 @@ console.log({
   username: config.dbUserName,
   password: config.dbPassword,
   database: config.dbName,
-  entities: [UserInfo],
+  entities: [Note],
   synchronize: true,
   logging: false,
 });
@@ -24,7 +24,7 @@ export const dataSource = new DataSource({
   username: config.dbUserName,
   password: config.dbPassword,
   database: config.dbName,
-  entities: [UserInfo],
+  entities: [Note],
   synchronize: true,
   logging: false,
 });

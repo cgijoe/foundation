@@ -8,6 +8,7 @@ import { CustomErrorHandler } from "./middlewares/CustomErrorHandler";
 
 import config from "./config";
 import Keycloak from "./Keycloak";
+import NoteController from "./server/note/NoteController";
 
 export default class App {
   public app: express.Application;
@@ -37,7 +38,7 @@ export default class App {
       classTransformer: true,
       validation: { skipMissingProperties: true },
       // validation : true,
-      controllers: [UserController],
+      controllers: [UserController, NoteController],
       middlewares: [CustomErrorHandler],
       // controllerDirs: [__dirname + "/controller/**/*.controller.js"],
       // middlewareDirs: [__dirname + "/middleware/**/*.middleware.js"],
