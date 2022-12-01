@@ -3,9 +3,19 @@ import { Result } from "../../models/Result";
 import CreateNoteRequest from "./models/CreateNoteRequest";
 
 export interface INoteService {
-  createNewNote: (request: CreateNoteRequest) => Promise<Result>;
-  getAllNotes: (paginationParams: PaginationParams) => Promise<Result>;
-  getNote: (id: number) => Promise<Result>;
-  updateNote: (id: number, request: CreateNoteRequest) => Promise<Result>;
-  deleteNote: (id: number) => Promise<Result>;
+  createNewNote: (
+    userId: string,
+    request: CreateNoteRequest
+  ) => Promise<Result>;
+  getAllNotes: (
+    userId: string,
+    paginationParams: PaginationParams
+  ) => Promise<Result>;
+  getNote: (userId: string, id: number) => Promise<Result>;
+  updateNote: (
+    userId: string,
+    id: number,
+    request: CreateNoteRequest
+  ) => Promise<Result>;
+  deleteNote: (userId: string, id: number) => Promise<Result>;
 }

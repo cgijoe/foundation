@@ -9,6 +9,7 @@ import {
   Param,
   Delete,
   UseBefore,
+  Req,
 } from "routing-controllers";
 import { INoteService } from "./INoteService";
 import { Response } from "express";
@@ -28,24 +29,39 @@ export default class NoteController {
   @Get("/")
   async getAll(
     @QueryParams() queryParams: PaginationParams,
+    @Req() req: any,
     @Res() response: Response
   ) {
-    const allNotes = await this.noteService.getAllNotes(queryParams);
+    const allNotes = await this.noteService.getAllNotes(
+      req.kauth.grant.access_token.content.sub,
+      queryParams
+    );
     return response.json(new SuccessResponse(allNotes.getValue()));
   }
 
   @Get("/:id")
-  async getNote(@Param("id") noteId: number, @Res() response: Response) {
-    const note = await this.noteService.getNote(noteId);
+  async getNote(
+    @Param("id") noteId: number,
+    @Req() req: any,
+    @Res() response: Response
+  ) {
+    const note = await this.noteService.getNote(
+      req.kauth.grant.access_token.content.sub,
+      noteId
+    );
     return response.json(new SuccessResponse(note.getValue()));
   }
 
   @Post("/")
   async createNote(
     @Body({ required: true }) createNoteRequest: CreateNoteRequest,
+    @Req() req: any,
     @Res() response: Response
   ) {
-    const noteInfo = await this.noteService.createNewNote(createNoteRequest);
+    const noteInfo = await this.noteService.createNewNote(
+      req.kauth.grant.access_token.content.sub,
+      createNoteRequest
+    );
     return response.json(new SuccessResponse(noteInfo.getValue()));
   }
 
@@ -53,9 +69,11 @@ export default class NoteController {
   async updateNote(
     @Param("id") noteId: number,
     @Body({ required: true }) updateNoteRequest: CreateNoteRequest,
+    @Req() req: any,
     @Res() response: Response
   ) {
     const noteInfo = await this.noteService.updateNote(
+      req.kauth.grant.access_token.content.sub,
       noteId,
       updateNoteRequest
     );
@@ -63,8 +81,15 @@ export default class NoteController {
   }
 
   @Delete("/:id")
-  async deleteNote(@Param("id") noteId: number, @Res() response: Response) {
-    const deleteResult = await this.noteService.deleteNote(noteId);
+  async deleteNote(
+    @Param("id") noteId: number,
+    @Req() req: any,
+    @Res() response: Response
+  ) {
+    const deleteResult = await this.noteService.deleteNote(
+      req.kauth.grant.access_token.content.sub,
+      noteId
+    );
     return response.json(new SuccessResponse(deleteResult.getValue()));
   }
 }

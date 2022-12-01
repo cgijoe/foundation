@@ -1,5 +1,5 @@
 import { Transform, TransformFnParams } from "class-transformer";
-import { IsPositive, IsAlpha, MinLength, IsNotEmpty } from "class-validator";
+import { MinLength, IsNotEmpty } from "class-validator";
 
 export default class CreateNoteRequest {
   @IsNotEmpty({ message: "Title must not be empty" })

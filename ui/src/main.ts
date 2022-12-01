@@ -11,7 +11,7 @@ import router from './router'
 import apiClient from './utilities/apiClient'
 
 import './assets/main.css'
-import { KeycloakClient } from './Keycloak'
+import { KeycloakClient } from './utilities/Keycloak'
 
 const keycloak = KeycloakClient.getInstance()
 keycloak.init({ onLoad: 'login-required' }).then((authenticated) => {
