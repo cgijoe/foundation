@@ -4,22 +4,27 @@ import type { IPaginationQuery } from '@/interfaces/IPaginationQuery'
 import { defineStore } from 'pinia'
 
 export interface INotesStoreState {
-  data?: INote | INote[] | null
+  notes?: INote[] | null
+  note?: INote | null
+  pagination?: IPaginationQuery
   loading: boolean
   error?: Error | null
 }
 
 export const useNotesStore = defineStore('notes', {
   state: (): INotesStoreState => ({
-    data: null,
+    notes: null,
+    note: null,
+    pagination: { page: 1, limit: 10 },
     loading: false,
-    error: null
+    error: null,
   }),
   actions: {
     async createNote(body: INote) {
-      this.loading = true;
+      this.loading = true
       try {
-        this.data = await (await noteApi.createNote(body)).data
+        this.note = await (await noteApi.createNote(body)).data.data
+        await this.getNotes(this.pagination)
       } catch (err) {
         this.error = err as Error
       } finally {
@@ -27,21 +32,22 @@ export const useNotesStore = defineStore('notes', {
       }
     },
     async getNotes(paginationParams?: IPaginationQuery) {
-      this.loading = true;
+      this.loading = true
+      this.pagination = paginationParams || { page: 1, limit: 10 }
       try {
-        this.data = await (await noteApi.getNotes(paginationParams || { page: 1 })).data
-        console.log(this.data)
+        this.notes = await (
+          await noteApi.getNotes(paginationParams || { page: 1 })
+        ).data.data
       } catch (err) {
         this.error = err as Error
-        console.log(this.error)
       } finally {
         this.loading = false
       }
     },
     async getNote(id: number) {
-      this.loading = true;
+      this.loading = true
       try {
-        this.data = await (await noteApi.getNote(id)).data
+        this.note = await (await noteApi.getNote(id)).data.data
       } catch (err) {
         this.error = err as Error
       } finally {
@@ -49,9 +55,10 @@ export const useNotesStore = defineStore('notes', {
       }
     },
     async updateNote(id: number, body: INote) {
-      this.loading = true;
+      this.loading = true
       try {
-        this.data = await (await noteApi.updateNote(id, body)).data
+        this.note = await (await noteApi.updateNote(id, body)).data.data
+        await this.getNotes(this.pagination)
       } catch (err) {
         this.error = err as Error
       } finally {
@@ -59,14 +66,15 @@ export const useNotesStore = defineStore('notes', {
       }
     },
     async deleteNote(id: number) {
-      this.loading = true;
+      this.loading = true
       try {
-        this.data = await (await noteApi.deleteNote(id)).data
+        this.note = await (await noteApi.deleteNote(id)).data.data
+        await this.getNotes(this.pagination)
       } catch (err) {
         this.error = err as Error
       } finally {
         this.loading = false
       }
-    }
+    },
   },
 })

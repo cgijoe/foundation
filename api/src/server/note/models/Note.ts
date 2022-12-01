@@ -14,7 +14,7 @@ export class Note {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ type: "longtext" })
   description: string;
 
   @Column()
