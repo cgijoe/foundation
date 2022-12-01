@@ -9,11 +9,22 @@ const props = defineProps({
 
 const notesStore = useNotesStore()
 
-const title = ref('')
-const description = ref('')
+const title = ref(props.note?.title || '')
+const description = ref(props.note?.description || '')
 
 const createNote = async () => {
   notesStore.createNote({
+    title: title.value,
+    description: description.value,
+  })
+  dialog.value = false
+}
+
+const updateNote = async () => {
+  if (!props.note) {
+    return
+  }
+  notesStore.updateNote(props.note.id, {
     title: title.value,
     description: description.value,
   })
@@ -61,7 +72,11 @@ const createNote = async () => {
           <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
             Close
           </v-btn>
-          <v-btn color="blue-darken-1" variant="text" @click="createNote">
+          <v-btn
+            color="blue-darken-1"
+            variant="text"
+            @click="note ? updateNote() : createNote()"
+          >
             Save
           </v-btn>
         </v-card-actions>
