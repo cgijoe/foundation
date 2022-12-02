@@ -10,8 +10,6 @@ const keycloak = KeycloakClient.getInstance()
       <v-app-bar-title>Hello</v-app-bar-title>
       <template v-slot:append>
         <v-btn to="/">Notes</v-btn>
-        <v-btn to="/users">Users</v-btn>
-        <v-btn to="/profile">Profile</v-btn>
         <v-btn @click="keycloak.logout">Logout</v-btn>
       </template>
     </v-app-bar>
