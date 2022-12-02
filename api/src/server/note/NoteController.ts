@@ -22,7 +22,7 @@ import { PaginationParams } from "../../models/PaginationParams";
 import Keycloak from "../../Keycloak";
 
 @JsonController("/note")
-@UseBefore(Keycloak.getInstance().protect("vue-frontend:user"))
+@UseBefore(Keycloak.getInstance().protect())
 export default class NoteController {
   public noteService: INoteService = Container.get(NoteService);
 
