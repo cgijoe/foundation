@@ -7,9 +7,6 @@ export default class CreateNoteRequest {
   title!: string;
 
   @IsNotEmpty()
-  @MinLength(50, {
-    message: "Note description must be at least 50 characters long",
-  })
   // @Transform(({ value }: TransformFnParams) => value?.trim())
   description!: string;
 }
